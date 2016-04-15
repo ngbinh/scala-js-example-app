@@ -1,7 +1,6 @@
 package example
 
 import scala.scalajs.js
-import js.annotation.JSExport
 import org.scalajs.dom
 
 object ScalaJSExample extends js.JSApp {
@@ -15,4 +14,6 @@ object ScalaJSExample extends js.JSApp {
    *  This demonstrates unit testing.
    */
   def square(x: Int): Int = x*x
+
+
 }
