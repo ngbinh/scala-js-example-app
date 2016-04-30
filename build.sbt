@@ -1,19 +1,18 @@
-// Turn this project into a Scala.js project by importing these settings
-enablePlugins(ScalaJSPlugin)
+import sbt.Keys._
 
-name := "Example"
+lazy val example = crossProject.in(file("example"))
+  .settings(
+    name := "Example",
+    version := "0.1-SNAPSHOT",
+    scalaVersion := "2.11.8",
+//    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD"),
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % "3.0.0-M15" % "test"
+    )
+  )
 
-version := "0.1-SNAPSHOT"
+lazy val exampleJvm = example.jvm
+lazy val exampleJs = example.js
 
-scalaVersion := "2.11.7"
-
-persistLauncher in Compile := true
-
-persistLauncher in Test := false
-
-testFrameworks += new TestFramework("utest.runner.Framework")
-
-libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.8.2",
-    "com.lihaoyi" %%% "utest" % "0.3.0" % "test"
-)
+lazy val root = project.in(file("."))
+    .aggregate(exampleJs, exampleJvm)
